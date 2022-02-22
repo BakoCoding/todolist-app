@@ -6,5 +6,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'my-app';
+  // state
+
+  todos: string[] = [];
+  todoText = '';
+
+  //lifecycle
+  ngOnInit() {
+    const existingTodos = localStorage.getItem('todos');
+    this.todos = JSON.parse(existingTodos as string) || [];
+  }
+    //events
+    addTodo() {
+      this.todos.push(this.todoText);
+      localStorage.setItem('todos', JSON.stringify(this.todos));
+    }
+    removeAllTodo() {
+      this.todos.pop();
+      localStorage.setItem('todos', JSON.stringify(this.todos));
+    }
 }
